@@ -3,22 +3,26 @@
 # ------------------------------------------------------
 
 type Auth {
-  """JWT access token"""
-  accessToken: JWT!
+	"""
+	JWT access token
+	"""
+	accessToken: JWT!
 
-  """JWT refresh token"""
-  refreshToken: JWT!
-  user: User!
+	"""
+	JWT refresh token
+	"""
+	refreshToken: JWT!
+	user: User!
 }
 
 input ChangePasswordInput {
-  newPassword: String!
-  oldPassword: String!
+	newPassword: String!
+	oldPassword: String!
 }
 
 input CreatePostInput {
-  content: String!
-  title: String!
+	content: String!
+	title: String!
 }
 
 """
@@ -32,123 +36,139 @@ A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
 scalar JWT
 
 input LoginInput {
-  email: String!
-  password: String!
+	email: String!
+	password: String!
 }
 
 type Mutation {
-  changePassword(data: ChangePasswordInput!): User!
-  createPost(data: CreatePostInput!): Post!
-  login(data: LoginInput!): Auth!
-  refreshToken(token: JWT!): Token!
-  signup(data: SignupInput!): Auth!
-  updateUser(data: UpdateUserInput!): User!
+	changePassword(data: ChangePasswordInput!): User!
+	createPost(data: CreatePostInput!): Post!
+	login(data: LoginInput!): Auth!
+	refreshToken(token: JWT!): Token!
+	signup(data: SignupInput!): Auth!
+	updateUser(data: UpdateUserInput!): User!
 }
 
 """
 Possible directions in which to order a list of items when provided an `orderBy` argument.
 """
 enum OrderDirection {
-  asc
-  desc
+	asc
+	desc
 }
 
 type PageInfo {
-  endCursor: String
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
+	endCursor: String
+	hasNextPage: Boolean!
+	hasPreviousPage: Boolean!
+	startCursor: String
 }
 
 type Post {
-  author: User
-  content: String
+	author: User
+	content: String
 
-  """Identifies the date and time when the object was created."""
-  createdAt: DateTime!
-  id: ID!
-  published: Boolean!
-  title: String!
+	"""
+	Identifies the date and time when the object was created.
+	"""
+	createdAt: DateTime!
+	id: ID!
+	published: Boolean!
+	title: String!
 
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: DateTime!
+	"""
+	Identifies the date and time when the object was last updated.
+	"""
+	updatedAt: DateTime!
 }
 
 type PostConnection {
-  edges: [PostEdge!]
-  pageInfo: PageInfo!
-  totalCount: Int!
+	edges: [PostEdge!]
+	pageInfo: PageInfo!
+	totalCount: Int!
 }
 
 type PostEdge {
-  cursor: String!
-  node: Post!
+	cursor: String!
+	node: Post!
 }
 
 input PostOrder {
-  direction: OrderDirection!
-  field: PostOrderField!
+	direction: OrderDirection!
+	field: PostOrderField!
 }
 
-"""Properties by which post connections can be ordered."""
+"""
+Properties by which post connections can be ordered.
+"""
 enum PostOrderField {
-  content
-  createdAt
-  id
-  published
-  title
-  updatedAt
+	content
+	createdAt
+	id
+	published
+	title
+	updatedAt
 }
 
 type Query {
-  hello(name: String!): String!
-  helloWorld: String!
-  me: User!
-  post: Post!
-  publishedPosts(orderBy: PostOrder, query: String): PostConnection!
-  userPosts: [Post!]!
+	hello(name: String!): String!
+	helloWorld: String!
+	me: User!
+	post: Post!
+	publishedPosts(orderBy: PostOrder, query: String): PostConnection!
+	userPosts: [Post!]!
 }
 
-"""User role"""
+"""
+User role
+"""
 enum Role {
-  ADMIN
-  USER
+	ADMIN
+	USER
 }
 
 input SignupInput {
-  email: String!
-  firstname: String
-  lastname: String
-  password: String!
+	email: String!
+	firstname: String
+	lastname: String
+	password: String!
 }
 
 type Subscription {
-  postCreated: Post!
+	postCreated: Post!
 }
 
 type Token {
-  """JWT access token"""
-  accessToken: JWT!
+	"""
+	JWT access token
+	"""
+	accessToken: JWT!
 
-  """JWT refresh token"""
-  refreshToken: JWT!
+	"""
+	JWT refresh token
+	"""
+	refreshToken: JWT!
 }
 
 input UpdateUserInput {
-  firstname: String
-  lastname: String
+	firstname: String
+	lastname: String
 }
 
 type User {
-  """Identifies the date and time when the object was created."""
-  createdAt: DateTime!
-  email: String!
-  firstname: String
-  id: ID!
-  lastname: String
-  posts: [Post!]
-  role: Role!
+	"""
+	Identifies the date and time when the object was created.
+	"""
+	createdAt: DateTime!
+	email: String!
+	firstname: String
+	id: ID!
+	lastname: String
+	posts: [Post!]
+	role: Role!
 
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: DateTime!
+	"""
+	Identifies the date and time when the object was last updated.
+	"""
+	updatedAt: DateTime!
 }

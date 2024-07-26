@@ -8,6 +8,7 @@ async function main() {
 
 	console.log('Seeding...');
 
+	// Users
 	const user1 = await prisma.user.create({
 		data: {
 			email: 'lisa@simpson.com',
@@ -47,8 +48,78 @@ async function main() {
 			}
 		}
 	});
-
 	console.log({ user1, user2 });
+
+	// Accounts
+	const account1 = await prisma.account.create({
+		data: {
+			userId: user1.id,
+			name: "Lisa's Account",
+			balance: 1500
+		}
+	});
+	const account2 = await prisma.account.create({
+		data: {
+			userId: user2.id,
+			name: "Bart's Account",
+			balance: 500
+		}
+	});
+	console.log({ account1, account2 });
+
+	// Transactions
+	const transactions = await prisma.transaction.createMany({
+		data: [
+			{
+				accountId: account1.id,
+				amount: -200,
+				type: 'outgoing',
+				description: 'Music Lessons',
+				date: new Date()
+			},
+			{
+				accountId: account1.id,
+				amount: 500,
+				type: 'incoming',
+				description: 'Gift',
+				date: new Date()
+			},
+			{
+				accountId: account2.id,
+				amount: -50,
+				type: 'outgoing',
+				description: 'Skateboard Repairs',
+				date: new Date()
+			},
+			{
+				accountId: account2.id,
+				amount: 100,
+				type: 'incoming',
+				description: 'Allowance',
+				date: new Date()
+			}
+		]
+	});
+	console.log({ transactions });
+
+	// Stats
+	const stats1 = await prisma.stat.create({
+		data: {
+			userId: user1.id,
+			runway: 12,
+			monthlyOutgoing: 200,
+			monthlyIncoming: 500
+		}
+	});
+	const stats2 = await prisma.stat.create({
+		data: {
+			userId: user2.id,
+			runway: 6,
+			monthlyOutgoing: 50,
+			monthlyIncoming: 100
+		}
+	});
+	console.log({ stats1, stats2 });
 }
 
 main()
