@@ -3,8 +3,12 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+	// Clear existing data
 	await prisma.user.deleteMany();
 	await prisma.post.deleteMany();
+	await prisma.account.deleteMany();
+	await prisma.transaction.deleteMany();
+	await prisma.stat.deleteMany();
 
 	console.log('Seeding...');
 
