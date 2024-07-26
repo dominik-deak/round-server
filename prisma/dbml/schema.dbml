@@ -12,6 +12,8 @@ Table User {
   lastname String
   posts Post [not null]
   role Role [not null]
+  Account Account [not null]
+  Stat Stat [not null]
 }
 
 Table Post {
@@ -25,9 +27,49 @@ Table Post {
   authorId String
 }
 
+Table Account {
+  id String [pk]
+  userId String [not null]
+  user User [not null]
+  name String [not null]
+  balance Float [not null]
+  transactions Transaction [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Transaction {
+  id String [pk]
+  accountId String [not null]
+  account Account [not null]
+  amount Float [not null]
+  type String [not null]
+  description String
+  date DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Stat {
+  id String [pk]
+  userId String [not null]
+  user User [not null]
+  runway Float [not null]
+  monthlyOutgoing Float [not null]
+  monthlyIncoming Float [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
 Enum Role {
   ADMIN
   USER
 }
 
 Ref: Post.authorId > User.id
+
+Ref: Account.userId > User.id
+
+Ref: Transaction.accountId > Account.id
+
+Ref: Stat.userId > User.id
