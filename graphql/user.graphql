@@ -1,25 +1,25 @@
 query Me {
-  me {
-    ...UserData
-  }
+	me {
+		...UserData
+	}
 }
 
 mutation UpdateUser {
-  updateUser(data: { firstname: "Bart", lastname: "Simpson" }) {
-    ...UserData
-  }
+	updateUser(data: { firstname: "Bart", lastname: "Simpson" }) {
+		...UserData
+	}
 }
 
 mutation ChangePassword {
-  changePassword(data: { oldPassword: "secret42", newPassword: "secret42" }) {
-    ...UserData
-  }
+	changePassword(data: { oldPassword: "secret42", newPassword: "secret42" }) {
+		...UserData
+	}
 }
 
 fragment UserData on User {
-  id
-  email
-  firstname
-  lastname
-  role
+	id
+	email
+	firstname
+	lastname
+	role
 }
