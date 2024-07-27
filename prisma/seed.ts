@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 async function main() {
 	// Clear existing data
-	await prisma.user.deleteMany();
-	await prisma.post.deleteMany();
-	await prisma.account.deleteMany();
-	await prisma.transaction.deleteMany();
 	await prisma.stat.deleteMany();
+	await prisma.transaction.deleteMany();
+	await prisma.account.deleteMany();
+	await prisma.post.deleteMany();
+	await prisma.user.deleteMany();
 
 	console.log('Seeding...');
 

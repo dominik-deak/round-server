@@ -12,8 +12,8 @@ Table User {
   lastname String
   posts Post [not null]
   role Role [not null]
-  Account Account [not null]
-  Stat Stat [not null]
+  accounts Account [not null]
+  stats Stat [not null]
 }
 
 Table Post {
@@ -45,14 +45,14 @@ Table Transaction {
   amount Float [not null]
   type String [not null]
   description String
-  date DateTime [not null]
+  date DateTime [default: `now()`, not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
 
 Table Stat {
   id String [pk]
-  userId String [not null]
+  userId String [unique, not null]
   user User [not null]
   runway Float [not null]
   monthlyOutgoing Float [not null]
