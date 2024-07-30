@@ -42,6 +42,7 @@ model Account {
     userId       String
     user         User          @relation(fields: [userId], references: [id])
     name         String
+    bank         String
     balance      Float
     transactions Transaction[]
     createdAt    DateTime      @default(now())

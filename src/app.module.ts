@@ -9,11 +9,11 @@ import { AppResolver } from './app.resolver';
 import config from './common/configs/config';
 
 // Modules
-import { AccountModule } from './account/account.module';
+import { AccountsModule } from './accounts/accounts.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { StatModule } from './stat/stat.module';
-import { TransactionModule } from './transaction/transaction.module';
+import { TransactionsModule } from './transactions/transactions.module';
 import { UsersModule } from './users/users.module';
 
 // Services
@@ -29,7 +29,6 @@ import { SyncService } from './sync/sync.service';
 			isGlobal: true,
 			prismaServiceOptions: {
 				middlewares: [
-					// configure your prisma middleware
 					loggingMiddleware({
 						logger: new Logger('PrismaMiddleware'),
 						logLevel: 'log'
@@ -45,8 +44,8 @@ import { SyncService } from './sync/sync.service';
 		AuthModule,
 		UsersModule,
 		PostsModule,
-		AccountModule,
-		TransactionModule,
+		AccountsModule,
+		TransactionsModule,
 		StatModule
 	],
 	controllers: [AppController],

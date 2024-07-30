@@ -1,14 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { Stat } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
+import { Stat } from './stat.model';
+import { transformPrismaStat } from './stats.transformer';
 
 @Injectable()
 export class StatService {
 	constructor(private prisma: PrismaService) {}
 
 	async getStats(userId: string): Promise<Stat[]> {
-		return this.prisma.stat.findMany({
-			where: { userId }
+		const stats = await this.prisma.stat.findMany({
+			where: { userId },
+			include: {
+				user: true
+			}
 		});
+
+		return stats.map(transformPrismaStat);
 	}
 }

@@ -59,14 +59,48 @@ async function main() {
 		data: {
 			userId: user1.id,
 			name: "Lisa's Account",
-			balance: 1500
+			bank: 'Bank of Springfield',
+			balance: 1500,
+			transactions: {
+				create: [
+					{
+						amount: -200,
+						type: 'outgoing',
+						description: 'Music Lessons',
+						date: new Date()
+					},
+					{
+						amount: 500,
+						type: 'incoming',
+						description: 'Gift',
+						date: new Date()
+					}
+				]
+			}
 		}
 	});
 	const account2 = await prisma.account.create({
 		data: {
 			userId: user2.id,
 			name: "Bart's Account",
-			balance: 500
+			bank: 'Bank of Springfield',
+			balance: 500,
+			transactions: {
+				create: [
+					{
+						amount: -50,
+						type: 'outgoing',
+						description: 'Skateboard Repairs',
+						date: new Date()
+					},
+					{
+						amount: 100,
+						type: 'incoming',
+						description: 'Allowance',
+						date: new Date()
+					}
+				]
+			}
 		}
 	});
 	console.log({ account1, account2 });

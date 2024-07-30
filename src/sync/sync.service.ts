@@ -22,16 +22,23 @@ export class SyncService {
 		];
 
 		for (const transaction of newTransactions) {
-			await this.prisma.transaction.create({
-				data: transaction
-			});
+			try {
+				// Check if the accountId exists
+				const account = await this.prisma.account.findUnique({
+					where: { id: transaction.accountId }
+				});
 
-			// Update the account balance
-			const account = await this.prisma.account.findUnique({
-				where: { id: transaction.accountId }
-			});
+				if (!account) {
+					console.error(`Account with ID ${transaction.accountId} does not exist. Skipping transaction.`);
+					continue;
+				}
 
-			if (account) {
+				// Create the transaction
+				await this.prisma.transaction.create({
+					data: transaction
+				});
+
+				// Update the account balance
 				const newBalance =
 					transaction.type === 'incoming'
 						? account.balance + transaction.amount
@@ -41,6 +48,8 @@ export class SyncService {
 					where: { id: transaction.accountId },
 					data: { balance: newBalance }
 				});
+			} catch (error) {
+				console.error(`Failed to process transaction for account ${transaction.accountId}:`, error);
 			}
 		}
 

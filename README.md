@@ -1,3 +1,11 @@
+## License
+
+This project includes original code licensed under the MIT License from https://github.com/notiz-dev/nestjs-prisma-starter/. Please see the LICENSE.md file for details.
+
+Portions of this project that have been modified or added by Dominik Deak are licensed under a proprietary license. Please see the PROPRIETARY_LICENSE.md file for details.
+
+Modifications and additions made by Dominik Deak can be seen in the commit history.
+
 # Instructions
 
 Starter template for 😻 [NestJS](https://nestjs.com/) and [Prisma](https://www.prisma.io/).

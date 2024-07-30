@@ -1,76 +1,10 @@
 /* eslint-disable */
 export default async () => {
-	const t = {
-		['./users/models/user.model']: await import('./users/models/user.model')
-	};
-	return {
-		'@nestjs/swagger/plugin': {
-			models: [],
-			controllers: [
-				[import('./app.controller'), { AppController: { getHello: { type: String }, getHelloName: { type: String } } }]
-			]
-		},
-		'@nestjs/graphql/plugin': {
-			models: [
-				[
-					import('./auth/dto/signup.input'),
-					{ SignupInput: { email: {}, password: {}, firstname: { nullable: true }, lastname: { nullable: true } } }
-				],
-				[import('./auth/models/token.model'), { Token: { accessToken: {}, refreshToken: {} } }],
-				[import('./common/models/base.model'), { BaseModel: { id: {}, createdAt: {}, updatedAt: {} } }],
-				[
-					import('./posts/models/post.model'),
-					{ Post: { title: {}, content: { nullable: true }, published: {}, author: { nullable: true } } }
-				],
-				[
-					import('./users/models/user.model'),
-					{
-						User: {
-							email: {},
-							firstname: { nullable: true },
-							lastname: { nullable: true },
-							role: {},
-							posts: { nullable: true }
-						}
-					}
-				],
-				[import('./auth/models/auth.model'), { Auth: { user: { type: () => t['./users/models/user.model'].User } } }],
-				[import('./auth/dto/login.input'), { LoginInput: { email: {}, password: {} } }],
-				[import('./auth/dto/refresh-token.input'), { RefreshTokenInput: { token: {} } }],
-				[import('./users/dto/change-password.input'), { ChangePasswordInput: { oldPassword: {}, newPassword: {} } }],
-				[
-					import('./users/dto/update-user.input'),
-					{ UpdateUserInput: { firstname: { nullable: true }, lastname: { nullable: true } } }
-				],
-				[
-					import('./common/pagination/pagination.args'),
-					{
-						PaginationArgs: {
-							skip: { nullable: true, type: () => Number },
-							after: { nullable: true, type: () => String },
-							before: { nullable: true, type: () => String },
-							first: { nullable: true, type: () => Number },
-							last: { nullable: true, type: () => Number }
-						}
-					}
-				],
-				[import('./posts/args/post-id.args'), { PostIdArgs: { postId: { type: () => String } } }],
-				[import('./posts/args/user-id.args'), { UserIdArgs: { userId: { type: () => String } } }],
-				[
-					import('./common/pagination/page-info.model'),
-					{
-						PageInfo: {
-							endCursor: { nullable: true },
-							hasNextPage: {},
-							hasPreviousPage: {},
-							startCursor: { nullable: true }
-						}
-					}
-				],
-				[import('./posts/models/post-connection.model'), { PostConnection: {} }],
-				[import('./posts/dto/post-order.input'), { PostOrder: { field: {} } }],
-				[import('./posts/dto/createPost.input'), { CreatePostInput: { content: {}, title: {} } }]
-			]
-		}
-	};
+    const t = {
+        ["./stat/stat.model"]: await import("./stat/stat.model"),
+        ["./accounts/account.model"]: await import("./accounts/account.model"),
+        ["./transactions/transaction.model"]: await import("./transactions/transaction.model"),
+        ["./users/models/user.model"]: await import("./users/models/user.model")
+    };
+    return { "@nestjs/swagger/plugin": { "models": [], "controllers": [[import("./app.controller"), { "AppController": { "getHello": { type: String }, "getHelloName": { type: String } } }], [import("./stat/stat.controller"), { "StatController": { "getStats": { type: [t["./stat/stat.model"].Stat] } } }], [import("./accounts/account.controller"), { "AccountController": { "getAccounts": { type: [t["./accounts/account.model"].Account] } } }], [import("./transactions/transaction.controller"), { "TransactionController": { "getTransactions": { type: [t["./transactions/transaction.model"].Transaction] } } }]] }, "@nestjs/graphql/plugin": { "models": [[import("./accounts/account.model"), { "Account": { id: {}, userId: {}, name: {}, bank: {}, balance: {}, transactions: { nullable: true }, createdAt: {}, updatedAt: {} } }], [import("./transactions/transaction.model"), { "Transaction": { id: {}, accountId: {}, account: {}, amount: {}, type: {}, description: { nullable: true }, date: {}, createdAt: {}, updatedAt: {} } }], [import("./auth/dto/signup.input"), { "SignupInput": { email: {}, password: {}, firstname: { nullable: true }, lastname: { nullable: true } } }], [import("./auth/models/token.model"), { "Token": { accessToken: {}, refreshToken: {} } }], [import("./common/models/base.model"), { "BaseModel": { id: {}, createdAt: {}, updatedAt: {} } }], [import("./posts/models/post.model"), { "Post": { title: {}, content: { nullable: true }, published: {}, author: { nullable: true } } }], [import("./users/models/user.model"), { "User": { email: {}, firstname: { nullable: true }, lastname: { nullable: true }, role: {}, posts: { nullable: true } } }], [import("./auth/models/auth.model"), { "Auth": { user: { type: () => t["./users/models/user.model"].User } } }], [import("./auth/dto/login.input"), { "LoginInput": { email: {}, password: {} } }], [import("./auth/dto/refresh-token.input"), { "RefreshTokenInput": { token: {} } }], [import("./common/pagination/pagination.args"), { "PaginationArgs": { skip: { nullable: true, type: () => Number }, after: { nullable: true, type: () => String }, before: { nullable: true, type: () => String }, first: { nullable: true, type: () => Number }, last: { nullable: true, type: () => Number } } }], [import("./posts/args/post-id.args"), { "PostIdArgs": { postId: { type: () => String } } }], [import("./posts/args/user-id.args"), { "UserIdArgs": { userId: { type: () => String } } }], [import("./common/pagination/page-info.model"), { "PageInfo": { endCursor: { nullable: true }, hasNextPage: {}, hasPreviousPage: {}, startCursor: { nullable: true } } }], [import("./posts/models/post-connection.model"), { "PostConnection": {} }], [import("./posts/dto/post-order.input"), { "PostOrder": { field: {} } }], [import("./posts/dto/createPost.input"), { "CreatePostInput": { content: {}, title: {} } }], [import("./stat/stat.model"), { "Stat": { id: {}, userId: {}, runway: {}, monthlyOutgoing: {}, monthlyIncoming: {}, createdAt: {}, updatedAt: {}, user: {} } }], [import("./users/dto/change-password.input"), { "ChangePasswordInput": { oldPassword: {}, newPassword: {} } }], [import("./users/dto/update-user.input"), { "UpdateUserInput": { firstname: { nullable: true }, lastname: { nullable: true } } }]] } };
 };
